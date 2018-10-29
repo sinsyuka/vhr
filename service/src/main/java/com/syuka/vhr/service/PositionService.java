@@ -1,7 +1,7 @@
 package com.syuka.vhr.service;
 
-import org.sang.bean.Position;
-import org.sang.mapper.PositionMapper;
+import com.syuka.vhr.api.dao.PositionDao;
+import com.syuka.vhr.api.model.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,26 +15,26 @@ import java.util.List;
 @Transactional
 public class PositionService {
     @Autowired
-    PositionMapper positionMapper;
+    PositionDao positionDao;
 
     public int addPos(Position pos) {
-        if (positionMapper.getPosByName(pos.getName()) != null) {
+        if (positionDao.getPosByName(pos.getName()) != null) {
             return -1;
         }
-        return positionMapper.addPos(pos);
+        return positionDao.addPos(pos);
     }
 
     public List<Position> getAllPos() {
-        return positionMapper.getAllPos();
+        return positionDao.getAllPos();
     }
 
     public boolean deletePosById(String pids) {
         String[] split = pids.split(",");
-        return positionMapper.deletePosById(split) == split.length;
+        return positionDao.deletePosById(split) == split.length;
     }
 
     public int updatePosById(Position position) {
-        return positionMapper.updatePosById(position);
+        return positionDao.updatePosById(position);
     }
 
 }
